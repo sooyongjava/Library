@@ -8,20 +8,16 @@ public class User {
     private String id;
     private String password;
     private String name;
-    private List rentalBookList = new ArrayList();
-    public HashMap<String, String> userInfo = new HashMap<>();
+    private List<String> rentalBookList = new ArrayList();
 
     // 기본 생성자
-    public User() {
-        super();
-    }
+    public User() {}
 
-    public User(String id, String password, String name, List rentalBookList, HashMap userInfo) {
+    public User(String id, String password, String name) {
         this.id = id;
         this.password = password;
         this.name = name;
-        this.rentalBookList = rentalBookList;
-        this.userInfo = userInfo;
+        this.rentalBookList = new ArrayList<>();
     }
 
     public String getId() {
@@ -52,15 +48,7 @@ public class User {
         return rentalBookList;
     }
 
-    public void setRentalBookList(List rentalBookList) {
-        this.rentalBookList = rentalBookList;
-    }
-
-    public HashMap<String, String> getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(HashMap<String, String> userInfo) {
-        this.userInfo = userInfo;
+    public void addRentalBookList(String bookTitle) {
+        rentalBookList.add(bookTitle);
     }
 }
