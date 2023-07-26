@@ -11,7 +11,7 @@ public class IndexPrint {
     public void index() {
         UserMethodImpl userMethodImpl = new UserMethodImpl();
 
-        System.out.println("==========   도서 대여 프로그램   ==========\n");
+        System.out.println("==========   도서 대출 프로그램   ==========\n");
         System.out.println("                1. 회원가입");
         System.out.println("                2. 로그인");
         System.out.println("                0. 종료");
@@ -20,14 +20,13 @@ public class IndexPrint {
         int select = sc.nextInt();
 
         switch (select) {
-            case 1 :
+            case 1:
                 userMethodImpl.userSignUp();
-                index();
                 break;
-            case 2 :
+            case 2:
                 userMethodImpl.userLogin();
                 break;
-            case 0 :
+            case 0:
                 System.exit(0);
         }
     }

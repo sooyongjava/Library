@@ -1,5 +1,7 @@
 package UserManage;
 
+import BookManage.BookMethodImpl;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,11 +11,11 @@ import java.util.regex.Pattern;
 public class UserMethodImpl implements UserMethod {
 
     private static Map<String, User> user = new HashMap<>();
+    private static User loginUser = null;
 
     @Override
     public void userSignUp() {
         Scanner sc = new Scanner(System.in);
-
         Pattern passPattern1 = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9]{4,11}$");
 
         while (true) {
@@ -65,6 +67,30 @@ public class UserMethodImpl implements UserMethod {
         }
 
         System.out.println(user.get(id).getName() + "님 어서오세요.");
+        libraryMenu();
         return true;
+    }
+
+    @Override
+    public void libraryMenu() {
+        Scanner sc = new Scanner(System.in);
+        BookMethodImpl bookMethod = new BookMethodImpl();
+        while (true) {
+            System.out.println("==========   도서관 입장을 환영합니다.   ==========\n");
+            System.out.println("                1. 도서 목록 조회");
+            System.out.println("                2. 도서 검색");
+            System.out.println("                3. 도서 대출");
+            System.out.println("                4. 도서 반납");
+            System.out.print("\n==========      번호를 선택하세요.      ========== >>>");
+
+            int select = sc.nextInt();
+
+            switch (select) {
+                case 1:
+                    bookMethod.bookListPrint();
+                    break;
+                case 2:
+            }
+        }
     }
 }
