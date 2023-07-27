@@ -1,14 +1,24 @@
 package BookManage;
 
 public class Book {
+    private long bookId;
     private String bookTitle;
-    private String bookwriter;
+    private String bookWriter;
     private boolean bookRentalAvailability;
 
-    public Book(String bookTitle, String bookwriter, boolean bookRentalAvailability) {
+    public Book(long bookId, String bookTitle, String bookwriter, boolean bookRentalAvailability) {
+        this.bookId = bookId;
         this.bookTitle = bookTitle;
-        this.bookwriter = bookwriter;
+        this.bookWriter = bookwriter;
         this.bookRentalAvailability = bookRentalAvailability;
+    }
+
+    public long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
     }
 
     public String getBookTitle() {
@@ -19,12 +29,12 @@ public class Book {
         this.bookTitle = bookTitle;
     }
 
-    public String getBookwriter() {
-        return bookwriter;
+    public String getBookWriter() {
+        return bookWriter;
     }
 
-    public void setBookwriter(String bookwriter) {
-        this.bookwriter = bookwriter;
+    public void setBookWriter(String bookWriter) {
+        this.bookWriter = bookWriter;
     }
 
     public boolean isBookRentalAvailability() {
@@ -37,8 +47,11 @@ public class Book {
 
     @Override
     public String toString() {
-        return  bookTitle + '\t' +
-                bookwriter + '\t' +
-                bookRentalAvailability;
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", bookwriter='" + bookWriter + '\'' +
+                ", bookRentalAvailability=" + bookRentalAvailability +
+                '}';
     }
 }

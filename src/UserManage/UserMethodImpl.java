@@ -66,7 +66,8 @@ public class UserMethodImpl implements UserMethod {
             return false;
         }
 
-        System.out.println(user.get(id).getName() + "님 어서오세요.");
+        loginUser = new User(id, password, user.get(id).getName());
+        System.out.println(loginUser.getName() + "님 어서오세요.");
         libraryMenu();
         return true;
     }
@@ -90,6 +91,8 @@ public class UserMethodImpl implements UserMethod {
                     bookMethod.bookListPrint();
                     break;
                 case 2:
+                    bookMethod.bookRent();
+                    break;
             }
         }
     }
