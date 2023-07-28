@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class UserMethodImpl implements UserMethod {
 
-    private static Map<String, User> user = new HashMap<>();
+    private static Map<String, User> user = new HashMap<>(); // 헷갈렸던 부분 2 : 저장소 역할을 하는 변수를 어디에 선언해야 하나?
     private static User loginUser = null;
 
     @Override
@@ -91,9 +91,16 @@ public class UserMethodImpl implements UserMethod {
                     bookMethod.bookListPrint();
                     break;
                 case 2:
+                    bookMethod.bookSearch();
+                    break;
+                case 3:
                     bookMethod.bookRent();
                     break;
             }
         }
+    }
+
+    public User getLoginUser() {
+        return loginUser;
     }
 }
