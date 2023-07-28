@@ -7,4 +7,6 @@ public interface UserMethod {
 
     void libraryMenu(); // 로그인 후 메뉴 출력
 
+    void logout();
+
 }

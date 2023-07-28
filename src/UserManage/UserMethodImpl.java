@@ -82,6 +82,7 @@ public class UserMethodImpl implements UserMethod {
             System.out.println("                2. 도서 검색");
             System.out.println("                3. 도서 대출");
             System.out.println("                4. 도서 반납");
+            System.out.println("                5. 로그아웃");
             System.out.print("\n==========      번호를 선택하세요.      ========== >>>");
 
             int select = sc.nextInt();
@@ -96,7 +97,23 @@ public class UserMethodImpl implements UserMethod {
                 case 3:
                     bookMethod.bookRent();
                     break;
+                case 4:
+                    bookMethod.bookReturn();
+                    break;
+                case 5:
+                    logout();
+                    break;
             }
+        }
+    }
+
+    @Override
+    public void logout() {
+        if (loginUser != null) {
+            System.out.println(loginUser.getName() + "님 !! 로그아웃 되었습니다.");
+            loginUser = null;
+        } else {
+            System.out.println("로그인 상태가 아닙니다.");
         }
     }
 

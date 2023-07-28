@@ -110,7 +110,25 @@ public class BookMethodImpl implements BookMethod {
     }
 
     @Override
-    public boolean bookReturn(String bookTitle) {
-        return false;
+    public void bookReturn() {
+        Scanner sc = new Scanner(System.in);
+        User loginuser = userMethod.getLoginUser();
+        System.out.println("======================== 도서 반납 (현재 빌린 도서 목록) ========================");
+        System.out.println(loginuser.getRentalBookList());
+        System.out.print("======================== 도서명을 입력하세요. ======================== >>>");
+        String returnBook = sc.nextLine().trim().replaceAll("\\s","");
+
+        if (loginUser.getRentalBookList().remove(returnBook)) {
+            for (Book book : bookList) {
+                if (book.getBookTitle().replaceAll("\\s", "").equalsIgnoreCase(returnBook.replaceAll("\\s", ""))) {
+                    book.setBookRentalAvailability(true);
+                    System.out.println("<<" + book.getBookTitle() + ">>" + "를 반납하셨습니다 !");
+                    return;
+                }
+            }
+            System.out.println("도서 목록에서 해당 도서를 찾지 못했습니다.");
+        } else {
+            System.out.println("대출한 도서 목록에서 해당 도서를 찾지 못했습니다.");
+        }
     }
 }
