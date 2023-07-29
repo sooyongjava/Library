@@ -1,6 +1,7 @@
 package UserManage;
 
 import BookManage.BookMethodImpl;
+import Index.IndexPrint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
 public class UserMethodImpl implements UserMethod {
 
     private static Map<String, User> user = new HashMap<>(); // 헷갈렸던 부분 2 : 저장소 역할을 하는 변수를 어디에 선언해야 하나?
-    private static User loginUser = null;
+    public static User loginUser = null; // 로그인 유저를 어떻게 처리해야 할지 모르겠음....
 
     @Override
     public void userSignUp() {
@@ -75,34 +76,40 @@ public class UserMethodImpl implements UserMethod {
     @Override
     public void libraryMenu() {
         Scanner sc = new Scanner(System.in);
+        IndexPrint ip = new IndexPrint();
         BookMethodImpl bookMethod = new BookMethodImpl();
         while (true) {
-            System.out.println("==========   도서관 입장을 환영합니다.   ==========\n");
-            System.out.println("                1. 도서 목록 조회");
-            System.out.println("                2. 도서 검색");
-            System.out.println("                3. 도서 대출");
-            System.out.println("                4. 도서 반납");
-            System.out.println("                5. 로그아웃");
-            System.out.print("\n==========      번호를 선택하세요.      ========== >>>");
+            if (loginUser == null) {
+                ip.index();
+            } else {
+                System.out.println("==========   도서관 입장을 환영합니다.   ==========\n");
+                System.out.println("                1. 도서 목록 조회");
+                System.out.println("                2. 도서 검색");
+                System.out.println("                3. 도서 대출");
+                System.out.println("                4. 도서 반납");
+                System.out.println("                5. 로그아웃");
+                System.out.print("\n==========      번호를 선택하세요.      ========== >>>");
 
-            int select = sc.nextInt();
+                int select = sc.nextInt();
 
-            switch (select) {
-                case 1:
-                    bookMethod.bookListPrint();
-                    break;
-                case 2:
-                    bookMethod.bookSearch();
-                    break;
-                case 3:
-                    bookMethod.bookRent();
-                    break;
-                case 4:
-                    bookMethod.bookReturn();
-                    break;
-                case 5:
-                    logout();
-                    break;
+                switch (select) {
+                    case 1:
+                        bookMethod.bookListPrint();
+                        break;
+                    case 2:
+                        bookMethod.bookSearch();
+                        break;
+                    case 3:
+                        bookMethod.bookRent();
+                        break;
+                    case 4:
+                        bookMethod.bookReturn();
+                        break;
+                    case 5:
+                        logout();
+
+                        break;
+                }
             }
         }
     }

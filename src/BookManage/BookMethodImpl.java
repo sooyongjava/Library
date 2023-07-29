@@ -43,7 +43,6 @@ public class BookMethodImpl implements BookMethod {
     public void bookListPrint() {
         bookListsetting();
 
-//        Iterator<Book> iterator = bookList.iterator();
 
         System.out.println("\n도서명\t\t\t\t\t저자\t\t\t대출 가능 여부");
         System.out.println("================================================");
@@ -114,7 +113,12 @@ public class BookMethodImpl implements BookMethod {
         Scanner sc = new Scanner(System.in);
         User loginuser = userMethod.getLoginUser();
         System.out.println("======================== 도서 반납 (현재 빌린 도서 목록) ========================");
-        System.out.println(loginuser.getRentalBookList());
+        try {
+            System.out.println(loginuser.getRentalBookList());
+        } catch (Exception e) {
+            System.out.println("현재 빌리고 계신 도서가 없습니다 !");
+        }
+
         System.out.print("======================== 도서명을 입력하세요. ======================== >>>");
         String returnBook = sc.nextLine().trim().replaceAll("\\s","");
 
