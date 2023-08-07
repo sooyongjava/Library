@@ -5,6 +5,7 @@ public class Book {
     private String bookTitle;
     private String bookWriter;
     private boolean bookRentalAvailability;
+    // 대출한 유저
 
     public Book(long bookId, String bookTitle, String bookwriter, boolean bookRentalAvailability) {
         this.bookId = bookId;

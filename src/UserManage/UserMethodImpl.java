@@ -11,8 +11,9 @@ import java.util.regex.Pattern;
 
 public class UserMethodImpl implements UserMethod {
 
-    private static Map<String, User> user = new HashMap<>(); // 헷갈렸던 부분 2 : 저장소 역할을 하는 변수를 어디에 선언해야 하나?
+    private static Map<String, User> user = new HashMap<>(); // 헷갈렸던 부분 2 : 저장소 역할을 하는 변수를 어디에 선언해야 하나? //
     public static User loginUser = null; // 로그인 유저를 어떻게 처리해야 할지 모르겠음....
+
 
     @Override
     public void userSignUp() {

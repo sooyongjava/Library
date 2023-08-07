@@ -4,7 +4,6 @@ import UserManage.User;
 import UserManage.UserMethodImpl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +25,7 @@ public class BookMethodImpl implements BookMethod {
 
     List<Book> bookList = new ArrayList<>();
 
-    public void bookListsetting() {
+    public BookMethodImpl() {
         bookList.add(book1);
         bookList.add(book6);
         bookList.add(book2);
@@ -41,8 +40,6 @@ public class BookMethodImpl implements BookMethod {
 
     @Override
     public void bookListPrint() {
-        bookListsetting();
-
 
         System.out.println("\n도서명\t\t\t\t\t저자\t\t\t대출 가능 여부");
         System.out.println("================================================");
@@ -82,57 +79,79 @@ public class BookMethodImpl implements BookMethod {
 
     @Override
     public void bookRent() {
+        if (loginUser == null) {
+            System.out.println("로그인이 필요합니다. 로그인 후 이용해주세요.");
+            return;
+        }
+
         Scanner sc = new Scanner(System.in);
 
         System.out.println("======================== 도서 대출 ========================");
         bookListPrint();
         System.out.print("======================== 도서명을 입력하세요. ======================== >>>");
         String selectBook = sc.nextLine().trim();
+
         boolean bookCatch = false;
 
         for (Book book : bookList) {
-            if (book.getBookTitle().replaceAll("\\s", "").equals(selectBook.replaceAll("\\s", ""))) {
+            if (book.getBookTitle().equalsIgnoreCase(selectBook)) {
                 if (book.isBookRentalAvailability()) {
                     book.setBookRentalAvailability(false);
-                    System.out.println("<<" + book.getBookTitle() + ">>" + "를 대출하셨습니다 !");
+                    System.out.println("<<" + book.getBookTitle() + ">>" + "를 대출하셨습니다!");
                     loginUser.addRentalBookList(selectBook);
                 } else {
-                    System.out.println("이미 대출 중인 도서입니다 !");
+                    System.out.println("이미 대출 중인 도서입니다!");
                 }
                 bookCatch = true;
                 break;
             }
         }
         if (!bookCatch) {
-            System.out.println("죄송하지만 저희 도서관에는 존재하지 않는 책입니다 !");
+            System.out.println("죄송하지만 저희 도서관에는 존재하지 않는 책입니다!");
         }
     }
 
     @Override
     public void bookReturn() {
+        if (loginUser == null) {
+            System.out.println("로그인이 필요합니다. 로그인 후 이용해주세요.");
+            return;
+        }
+
         Scanner sc = new Scanner(System.in);
-        User loginuser = userMethod.getLoginUser();
+
         System.out.println("======================== 도서 반납 (현재 빌린 도서 목록) ========================");
-        try {
-            System.out.println(loginuser.getRentalBookList());
-        } catch (Exception e) {
-            System.out.println("현재 빌리고 계신 도서가 없습니다 !");
+
+        List<String> rentalBookList = loginUser.getRentalBookList();
+        if (rentalBookList.isEmpty()) {
+            System.out.println("현재 빌리고 계신 도서가 없습니다!");
+            return;
+        }
+
+        for (String bookTitle : rentalBookList) {
+            System.out.println(bookTitle);
         }
 
         System.out.print("======================== 도서명을 입력하세요. ======================== >>>");
-        String returnBook = sc.nextLine().trim().replaceAll("\\s","");
+        String returnBook = sc.nextLine().trim();
 
-        if (loginUser.getRentalBookList().remove(returnBook)) {
-            for (Book book : bookList) {
-                if (book.getBookTitle().replaceAll("\\s", "").equalsIgnoreCase(returnBook.replaceAll("\\s", ""))) {
+        boolean bookCatch = false;
+
+        for (Book book : bookList) {
+            if (book.getBookTitle().equalsIgnoreCase(returnBook)) {
+                if (!book.isBookRentalAvailability()) {
                     book.setBookRentalAvailability(true);
-                    System.out.println("<<" + book.getBookTitle() + ">>" + "를 반납하셨습니다 !");
-                    return;
+                    System.out.println("<<" + book.getBookTitle() + ">>" + "를 반납하셨습니다!");
+                    rentalBookList.remove(returnBook);
+                } else {
+                    System.out.println("대출 중인 도서 목록에서 해당 도서를 찾지 못했습니다.");
                 }
+                bookCatch = true;
+                break;
             }
+        }
+        if (!bookCatch) {
             System.out.println("도서 목록에서 해당 도서를 찾지 못했습니다.");
-        } else {
-            System.out.println("대출한 도서 목록에서 해당 도서를 찾지 못했습니다.");
         }
     }
 }
